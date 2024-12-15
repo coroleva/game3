@@ -1,28 +1,31 @@
 from tkinter import *
+import menu
 
 # область функций
 def set_status(text, color='black'):
     canvas.itemconfig(text_id, text=text, fill=color)
 def key_handler(event):
-    # if event.keycode == KEY_UP:
-    #     menu_up()
-    # if event.keycode == KEY_DOWN:
-    #     menu_down()
+    if event.keycode == KEY_UP:
+        menu.menu_up(canvas)
+    if event.keycode == KEY_DOWN:
+        menu.menu_down(canvas)
     # if event.keycode == KEY_ENTER:
     #     menu_enter()
     #
     if game_over:
         return
-    # if event.keycode == KEY_PAUSE:
-    #     pause_toggle()
-    #
-    # if pause:
-    #     return
-    # if event.keycode == KEY_ESC:
-    #     menu_toggle()
+    if event.keycode == KEY_PAUSE:
+        menu.pause_toggle()
+        set_status('Пауза')
 
-    # if menu_mode:
-    #     return
+
+    if menu.pause:
+        return
+    if event.keycode == KEY_ESC:
+        menu.menu_toggle(canvas)
+
+    if menu.menu_mode:
+        return
 
     set_status('Вперед!')
     if event.keycode == KEY_PLAYER1:
@@ -89,7 +92,7 @@ window.title('Меню игры')
 
 canvas = Canvas(window, width=game_width, height=game_height, bg='white')
 canvas.pack()
-# menu_create(canvas)
+menu.menu_create(canvas)
 player1 = canvas.create_rectangle(x1,
                                   y1,
                                   x1 + player_size,
